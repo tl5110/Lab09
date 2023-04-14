@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GroceryLine ?" type="Application" factoryName="Application" editBeforeRun="true">
+    <option name="ALTERNATIVE_JRE_PATH" value="16" />
+    <option name="MAIN_CLASS_NAME" value="edu.rit.cs.grocerystore.GroceryLine" />
+    <module name="GroceryLine" />
+    <option name="PROGRAM_PARAMETERS" value="PUT ARGUMENTS HERE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
