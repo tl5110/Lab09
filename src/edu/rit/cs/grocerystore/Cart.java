@@ -5,15 +5,17 @@ package edu.rit.cs.grocerystore;
 // It is up to you to fill it in properly and add comments.
 
 public class Cart extends TimedObject implements Comparable< Cart > {
-
+    private final int load;
     public Cart() {
+        this.load = Integer.MAX_VALUE;
     }
 
     public Cart( int numItems ) {
+        this.load = numItems;
     }
 
     public int getCartSize() {
-        return 0;
+        return load;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class Cart extends TimedObject implements Comparable< Cart > {
 
     @Override
     public String toString() {
-        return null;
+        return "Cart(" + this.load + ")";
     }
 
 }
