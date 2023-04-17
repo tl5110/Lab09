@@ -1,23 +1,28 @@
 package edu.rit.cs.grocerystore;
 
-public class Customer {
+public class Customer extends Object implements Runnable{
+    private final double delay;
+    private final Cart cart;
     private final TSQueue<Cart> queue;
-    private final int numGroceries;
-    private final long waitTime;
+    private final int id;
+    private static int next_id = 1;
 
-    public Customer(TSQueue<Cart> queue, int numGroceries, long waitTime){
+    public Customer(double delay,  Cart cart, TSQueue<Cart> queue){
+        this.delay = delay;
+        this.cart = cart;
         this.queue = queue;
-        this.numGroceries = numGroceries;
-        this.waitTime = waitTime;
+        this.id = next_id;
+        next_id++;
     }
 
     public void run(){
         try{
-            Thread.sleep(waitTime);
+            Thread.sleep((long) delay);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Cart cart = new Cart(numGroceries);
         this.queue.enqueue(cart);
+        System.out.println("Customer " + id + " with " + cart +
+                " has entered the line, with ?? customers in front." );
     }
 }
