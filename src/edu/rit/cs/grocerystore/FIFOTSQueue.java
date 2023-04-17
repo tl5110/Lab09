@@ -1,7 +1,6 @@
 package edu.rit.cs.grocerystore;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * An implementation of TSQueue that follows first-in-first-out behavior

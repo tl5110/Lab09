@@ -7,7 +7,7 @@ import java.util.List;
  * at a grocery store.
  *
  * @author RIT CS
- * @author YOUR NAME HERE
+ * @author Tiffany Lee
  */
 public class GroceryLine {
 
@@ -33,7 +33,6 @@ public class GroceryLine {
      *             [3] "fifo" for ordinary queue, "prio" for small-cart priority
      */
     public static void main( String[] args ) {
-
         try {
 
             /*
@@ -48,19 +47,21 @@ public class GroceryLine {
             int numCustomers = Integer.parseInt( args[ 0 ] );
             int avgLoad = Integer.parseInt( args[ 1 ] );
             double avgDelay = Double.parseDouble( args[ 2 ] );
-            TSQueue< Cart > checkoutLine;
+            TSQueue<Cart> checkoutLine;
             switch( args[ 3 ] ) {
                 case FIFO_Q -> checkoutLine = new FIFOTSQueue<>();
                 case PRIO_Q -> checkoutLine = new PriorityTSQueue<>();
                 default -> throw new IllegalArgumentException( args[ 3 ] );
             }
-            Utilities.println( "Using a " + args[ 3 ] + " queue." );
+            Utilities.println("Generating " + numCustomers + " customers.");
+            Utilities.println("Average cart size is " + avgLoad);
+            Utilities.println("Average inter-customer arrival time is " + avgDelay);
+            Utilities.println( "Using a " + args[ 3 ] + " queue.\n" );
 
             // Record the time that the simulation started.
             long beginTime = System.currentTimeMillis();
 
             /*
-             * TODO
              * Next, set up the simulation objects -- the
              * pool of customers and checkout clerk --
              * in the process attaching each one to the checkout queue.
@@ -69,11 +70,11 @@ public class GroceryLine {
             // when most things are just stubbed out.
             // Replace them with proper statements, and additional statements,
             // when you are ready.
-            Thread clerkThread = new Thread();
-            List< Cart > carts = null;
+            CustomerPool customerPool = new CustomerPool(checkoutLine, numCustomers, avgLoad, (int) avgDelay);
+            Clerk newClerk = new Clerk(checkoutLine);
+            Thread clerkThread = new Thread(newClerk);
 
             /*
-             * TODO
              * Start the clerk thread and then tell the customer pool
              * to start randomly creating customers and their carts of
              * groceries.
@@ -86,7 +87,10 @@ public class GroceryLine {
              * directly to the queue, without a customer.
              * Wait for the clerk thread to see that cart and terminate.
              */
-            checkoutLine.enqueue( Utilities.NO_MORE_CARTS );
+            clerkThread.start();
+            List<Cart> carts = customerPool.simulateCustomers();
+
+            checkoutLine.enqueue(Utilities.NO_MORE_CARTS);
             clerkThread.join();
 
             // Record the time that the simulation started.
