@@ -35,7 +35,7 @@ public class Clerk implements Runnable{
         Cart cartRemoved = checkoutLine.dequeue();
         while(cartRemoved != Utilities.NO_MORE_CARTS){
             try {
-                Utilities.println("Clerk got " + cartRemoved.toString());
+                Utilities.println("Clerk got " + cartRemoved);
                 Thread.sleep(cartRemoved.getCartSize()*Utilities.TIME_PER_CART_ITEM);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

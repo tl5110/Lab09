@@ -61,32 +61,10 @@ public class GroceryLine {
             // Record the time that the simulation started.
             long beginTime = System.currentTimeMillis();
 
-            /*
-             * Next, set up the simulation objects -- the
-             * pool of customers and checkout clerk --
-             * in the process attaching each one to the checkout queue.
-             */
-            // Some temporary lines are here to help your code compile
-            // when most things are just stubbed out.
-            // Replace them with proper statements, and additional statements,
-            // when you are ready.
             CustomerPool customerPool = new CustomerPool(checkoutLine, numCustomers, avgLoad, (int) avgDelay);
             Clerk newClerk = new Clerk(checkoutLine);
             Thread clerkThread = new Thread(newClerk);
 
-            /*
-             * Start the clerk thread and then tell the customer pool
-             * to start randomly creating customers and their carts of
-             * groceries.
-             */
-
-            /*
-             * Control returns to this point when all the customers and carts
-             * have been created, and the customers' carts have all been
-             * checked out. Add the simulation-terminating cart NO_MORE_CARTS
-             * directly to the queue, without a customer.
-             * Wait for the clerk thread to see that cart and terminate.
-             */
             clerkThread.start();
             List<Cart> carts = customerPool.simulateCustomers();
 
